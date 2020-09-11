@@ -1,0 +1,4 @@
+include ':testpustool-no-op'
+include ':testpushtool'
+include ':app'
+rootProject.name = "YxTestPush"

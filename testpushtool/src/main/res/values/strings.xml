@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="clients">
+        <item>好分数</item>
+        <item>好分数家长端</item>
+        <item>好分数学生端</item>
+        <item>慧学</item>
+        <item>辅导</item>
+    </string-array>
+</resources>
