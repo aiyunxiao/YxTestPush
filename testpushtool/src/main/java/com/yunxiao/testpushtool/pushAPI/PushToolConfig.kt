@@ -39,6 +39,34 @@ object PushToolConfig {
 
     }
 
+    fun initRegistrationId(context: Context, id: String?): PushToolConfig {
+        val content = getPushContent(context)
+        if (content.isNotEmpty() && id != null) {
+            PushGsonUtill.fromJson<PushRequest>(content, PushRequest::class.java).run {
+                if (!this.audience.registrationId.contains(content)) {
+                    this.audience.registrationId.add(id)
+                }
+                savePushContent(context, PushGsonUtill.toJson(this))
+            }
+
+        }
+        return this
+    }
+
+    fun initAlias(context: Context, alise: String?): PushToolConfig {
+        val content = getPushContent(context)
+        if (content.isNotEmpty() && alise != null) {
+            PushGsonUtill.fromJson<PushRequest>(content, PushRequest::class.java).run {
+                if (!this.audience.alias.contains(content)) {
+                    this.audience.alias.add(alise)
+                }
+                savePushContent(context, PushGsonUtill.toJson(this))
+            }
+
+        }
+        return this
+    }
+
     fun configAuth(
         context: Context,
         testStr: String?,
@@ -66,7 +94,7 @@ object PushToolConfig {
 
     fun setPushExtras(context: Context, obj: Any?): PushToolConfig {
         var content = PushRequest().apply {
-            notification.android.extras = Gson().toJson(obj)
+            notification.android.extras = Gson().toJson(obj?:"")
         }
         context.getSharedPreferences(Constants.PUSH_DATA, Context.MODE_PRIVATE).edit().also {
             it.putString(Constants.PUSH_CONTENT, PushGsonUtill.toJson(content))

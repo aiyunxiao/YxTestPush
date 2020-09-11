@@ -16,6 +16,16 @@ object PushToolConfig {
         return this
     }
 
+    fun initRegistrationId(context: Context, id: String?): PushToolConfig {
+
+        return this
+    }
+
+    fun initAlias(context: Context, alise: String?): PushToolConfig {
+
+        return this
+    }
+
     fun addInterceptor(interceptor: Interceptor): PushToolConfig {
         return this
     }
