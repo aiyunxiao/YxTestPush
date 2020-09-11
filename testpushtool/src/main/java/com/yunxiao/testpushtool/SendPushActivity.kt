@@ -120,9 +120,13 @@ class SendPushActivity : BaseTestPushActivity(), PushContact.PushView {
             }.show()
         }
         tvClearAddRegistrationId.setOnClickListener {
-            registrationIdAdapter.setNewData(emptyList())
+            pushContent.audience.registrationId.clear()
+            registrationIdAdapter.notifyDataSetChanged()
         }
-        tvCleartvAddAlias.setOnClickListener { aliseAdapter.setNewData(emptyList()) }
+        tvCleartvAddAlias.setOnClickListener {
+            pushContent.audience.alias.clear()
+            aliseAdapter.notifyDataSetChanged()
+        }
         registrationIdAdapter.setNewData(pushContent.audience.registrationId)
         aliseAdapter.setNewData(pushContent.audience.alias)
     }
