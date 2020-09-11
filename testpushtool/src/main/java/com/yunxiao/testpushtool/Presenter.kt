@@ -15,7 +15,7 @@ import okhttp3.RequestBody
  * description
  * @author zhaiyaohua createBy 2020/9/8
  */
-class Presenter(var view: PushContact.PushView) : PushContact.PushPresent {
+internal class Presenter(var view: PushContact.PushView) : PushContact.PushPresent {
     private val pushService: PushService = PushToolConfig.retrofit.create(PushService::class.java)
 
     override fun pushStuDebug(author: String, requestBody: PushRequest) {

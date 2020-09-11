@@ -4,7 +4,7 @@ package com.yunxiao.testpushtool
  * description
  * @author zhaiyaohua createBy 2020/9/9
  */
-class Constants {
+internal class Constants {
     companion object {
         const val PUSH_DATA: String = "push_data"
         const val RELEASE_AUTH="release_auth"//正式环境

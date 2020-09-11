@@ -2,7 +2,6 @@ package com.yunxiao.testpushtool.pushAPI
 
 import android.content.Context
 import android.util.Base64
-import com.google.gson.Gson
 import com.parkingwang.okhttp3.LogInterceptor.LogInterceptor
 import com.yunxiao.testpushtool.Constants
 import com.yunxiao.testpushtool.PushGsonUtill
@@ -94,7 +93,7 @@ object PushToolConfig {
 
     fun setPushExtras(context: Context, obj: Any?): PushToolConfig {
         var content = PushRequest().apply {
-            notification.android.extras = Gson().toJson(obj?:"")
+            notification.android.extras = PushGsonUtill.toJson(obj?:"")
         }
         context.getSharedPreferences(Constants.PUSH_DATA, Context.MODE_PRIVATE).edit().also {
             it.putString(Constants.PUSH_CONTENT, PushGsonUtill.toJson(content))

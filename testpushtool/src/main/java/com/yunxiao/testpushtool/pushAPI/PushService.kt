@@ -11,7 +11,7 @@ import retrofit2.http.POST
  * description
  * @author zhaiyaohua createBy 2020/9/8
  */
-interface PushService {
+internal interface PushService {
     @Headers("Content-Type: application/json", "Accept: application/json")
     @POST("push")
     fun pushDebug(

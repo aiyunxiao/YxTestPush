@@ -8,7 +8,7 @@ import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationManagerCompat
 import java.lang.reflect.InvocationTargetException
 
-class NotificationsCheckUtil {
+internal class NotificationsCheckUtil {
     companion object {
         fun areNotificationsEnabled(context: Context): Boolean {
             NotificationManagerCompat.from(context).areNotificationsEnabled()

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.view_edit_dialog.*
  * description
  * @author zhaiyaohua createBy 2020/9/9
  */
-class EditPushDataDialog : Dialog {
+internal class EditPushDataDialog : Dialog {
     constructor(context: Context, saveListener: (String,Dialog) -> Unit = {_,_->}) : super(
         context,
         R.style.pushDialog
