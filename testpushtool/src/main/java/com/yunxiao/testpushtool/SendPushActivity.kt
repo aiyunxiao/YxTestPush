@@ -45,7 +45,7 @@ class SendPushActivity : BaseTestPushActivity(), PushContact.PushView {
             }
         }
         pushContent =
-            PushGsonUtill.fromJson(PushToolConfig.getPushContent(this), PushRequest::class.java)
+            PushGsonUtill.fromJson(PushToolConfig.getPushContent(), PushRequest::class.java)
 
         pushPresenter = Presenter(this)
         tvEditPushData.setOnClickListener {
@@ -63,9 +63,7 @@ class SendPushActivity : BaseTestPushActivity(), PushContact.PushView {
         btnPush.setOnClickListener {
             if (NotificationsCheckUtil.areNotificationsEnabled(this.applicationContext)) {
                 pushPresenter.pushStuDebug(
-                    if (cbRelease.isChecked) PushToolConfig.getReleaseAuth(this) else PushToolConfig.getTestAuth(
-                        this
-                    ), pushContent
+                    if (cbRelease.isChecked) PushToolConfig.getReleaseAuth() else PushToolConfig.getTestAuth(), pushContent
                 )
             } else {
                 Toast.makeText(this, "同学通知权限没开", Toast.LENGTH_SHORT).show()
@@ -133,6 +131,6 @@ class SendPushActivity : BaseTestPushActivity(), PushContact.PushView {
 
     override fun onPause() {
         super.onPause()
-        PushToolConfig.savePushContent(this, PushGsonUtill.toJson(pushContent))
+        PushToolConfig.savePushContent( PushGsonUtill.toJson(pushContent))
     }
 }

@@ -2,7 +2,6 @@ package com.yunxiao.testpushtool.pushAPI
 
 import android.content.Context
 import android.util.Base64
-import com.google.gson.Gson
 import com.parkingwang.okhttp3.LogInterceptor.LogInterceptor
 import com.yunxiao.testpushtool.Constants
 import com.yunxiao.testpushtool.PushGsonUtill
@@ -20,6 +19,7 @@ import java.util.concurrent.TimeUnit
 object PushToolConfig {
     private const val CONNECT_TIME = 15L
     private const val READ_WRITE_TIMEOUT = 15L
+    private lateinit var context:Context
     private val resultInterceptor: Interceptor = Interceptor { chain ->
         var response = chain.proceed(chain.request())
         listener(response.body()?.string() ?: "")
@@ -38,29 +38,33 @@ object PushToolConfig {
         this.listener = listener
 
     }
+    fun init(context: Context):PushToolConfig{
+        this.context=context.applicationContext
+        return this
+    }
 
-    fun initRegistrationId(context: Context, id: String?): PushToolConfig {
-        val content = getPushContent(context)
+    fun initRegistrationId(id: String?): PushToolConfig {
+        val content = getPushContent()
         if (content.isNotEmpty() && id != null) {
             PushGsonUtill.fromJson<PushRequest>(content, PushRequest::class.java).run {
                 if (!this.audience.registrationId.contains(content)) {
                     this.audience.registrationId.add(id)
                 }
-                savePushContent(context, PushGsonUtill.toJson(this))
+                savePushContent(PushGsonUtill.toJson(this))
             }
 
         }
         return this
     }
 
-    fun initAlias(context: Context, alise: String?): PushToolConfig {
-        val content = getPushContent(context)
+    fun initAlias(alise: String?): PushToolConfig {
+        val content = getPushContent()
         if (content.isNotEmpty() && alise != null) {
             PushGsonUtill.fromJson<PushRequest>(content, PushRequest::class.java).run {
                 if (!this.audience.alias.contains(content)) {
                     this.audience.alias.add(alise)
                 }
-                savePushContent(context, PushGsonUtill.toJson(this))
+                savePushContent(PushGsonUtill.toJson(this))
             }
 
         }
@@ -68,7 +72,6 @@ object PushToolConfig {
     }
 
     fun configAuth(
-        context: Context,
         testStr: String?,
         releaseStr: String?
     ): PushToolConfig {
@@ -92,9 +95,9 @@ object PushToolConfig {
         return this
     }
 
-    fun setPushExtras(context: Context, obj: Any?): PushToolConfig {
+    fun setPushExtras(obj: Any?): PushToolConfig {
         var content = PushRequest().apply {
-            notification.android.extras = Gson().toJson(obj?:"")
+            notification.android.extras = PushGsonUtill.toJson(obj?:"")
         }
         context.getSharedPreferences(Constants.PUSH_DATA, Context.MODE_PRIVATE).edit().also {
             it.putString(Constants.PUSH_CONTENT, PushGsonUtill.toJson(content))
@@ -103,7 +106,7 @@ object PushToolConfig {
         return this
     }
 
-    fun savePushContent(context: Context, content: String): PushToolConfig {
+    fun savePushContent(content: String): PushToolConfig {
         context.getSharedPreferences(Constants.PUSH_DATA, Context.MODE_PRIVATE).edit().also {
             it.putString(Constants.PUSH_CONTENT, content)
             it.apply()
@@ -112,17 +115,17 @@ object PushToolConfig {
         return this
     }
 
-    fun getPushContent(context: Context): String {
+    fun getPushContent(): String {
         return context.getSharedPreferences(Constants.PUSH_DATA, Context.MODE_PRIVATE)
             .getString(Constants.PUSH_CONTENT, "") ?: ""
     }
 
-    fun getTestAuth(context: Context): String {
+    fun getTestAuth(): String {
         return context.getSharedPreferences(Constants.PUSH_DATA, Context.MODE_PRIVATE)
             .getString(Constants.TEST_AUTH, "") ?: ""
     }
 
-    fun getReleaseAuth(context: Context): String {
+    fun getReleaseAuth(): String {
         return context.getSharedPreferences(Constants.PUSH_DATA, Context.MODE_PRIVATE)
             .getString(Constants.RELEASE_AUTH, "") ?: ""
     }

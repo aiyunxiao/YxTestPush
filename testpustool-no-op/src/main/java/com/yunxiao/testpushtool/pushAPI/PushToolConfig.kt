@@ -8,46 +8,60 @@ import okhttp3.Interceptor
  * @author zhaiyaohua createBy 2020/9/8
  */
 object PushToolConfig {
+    internal var listener: (String) -> Unit = {}
+    internal fun setResponseListener(listener: (String) -> Unit) {
+        this.listener = listener
+
+    }
+
+    fun init(context: Context): PushToolConfig {
+
+        return this
+    }
+
+    fun initRegistrationId(id: String?): PushToolConfig {
+
+        return this
+    }
+
+    fun initAlias(alise: String?): PushToolConfig {
+
+        return this
+    }
+
     fun configAuth(
-        context: Context,
         testStr: String?,
         releaseStr: String?
     ): PushToolConfig {
-        return this
-    }
-
-    fun initRegistrationId(context: Context, id: String?): PushToolConfig {
-
-        return this
-    }
-
-    fun initAlias(context: Context, alise: String?): PushToolConfig {
 
         return this
     }
 
     fun addInterceptor(interceptor: Interceptor): PushToolConfig {
-        return this
-    }
-
-    fun setPushExtras(context: Context, obj: Any?): PushToolConfig {
-        return this
-    }
-
-    fun savePushContent(context: Context, content: String): PushToolConfig {
 
         return this
     }
 
-    fun getPushContent(context: Context): String {
+    fun setPushExtras(obj: Any?): PushToolConfig {
+
+        return this
+    }
+
+    fun savePushContent(content: String): PushToolConfig {
+
+        return this
+    }
+
+    fun getPushContent(): String {
+        return ""
+
+    }
+
+    fun getTestAuth(): String {
         return ""
     }
 
-    fun getTestAuth(context: Context): String {
-        return ""
-    }
-
-    fun getReleaseAuth(context: Context): String {
-        return ""
+    fun getReleaseAuth(): String {
+        return  ""
     }
 }

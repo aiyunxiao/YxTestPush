@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
         tvHellow.setOnClickListener {
             startActivity(Intent(this, SendPushActivity::class.java))
         }
-        val credentials= "1e54fab830b6f700ab635320:7ade33f1f9782b7311dbae74"
-        PushToolConfig.configAuth(this, credentials, credentials).setPushExtras(this.applicationContext,ExtrasBean()).initAlias(this,"ghjk").initRegistrationId(this,"ghjk")
+        val credentials = "1e54fab830b6f700ab635320:7ade33f1f9782b7311dbae74"
+        PushToolConfig.init(this.applicationContext).configAuth(credentials, credentials)
+            .setPushExtras(ExtrasBean()).initAlias("ghjk").initRegistrationId("ghjk")
     }
 }
