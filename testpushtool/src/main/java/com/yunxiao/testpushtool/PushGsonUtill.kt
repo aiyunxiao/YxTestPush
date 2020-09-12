@@ -21,12 +21,13 @@ class PushGsonUtill {
         }
 
         fun <T> fromJson(str: String?, typeOfT: Type?): T {
-            return GsonBuilder().setPrettyPrinting().create().fromJson(str, typeOfT)
+            return Gson().fromJson(str, typeOfT)
         }
 
         fun toJson(obj: Any?): String {
             return getJsonStr(Gson().toJson(obj))
         }
+
         fun validate(jsonStr: String?): Boolean {
             val jsonElement: JsonElement = try {
                 JsonParser().parse(jsonStr)
