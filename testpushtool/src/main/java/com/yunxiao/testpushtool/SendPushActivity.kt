@@ -63,7 +63,8 @@ class SendPushActivity : BaseTestPushActivity(), PushContact.PushView {
         btnPush.setOnClickListener {
             if (NotificationsCheckUtil.areNotificationsEnabled(this.applicationContext)) {
                 pushPresenter.pushStuDebug(
-                    if (cbRelease.isChecked) PushToolConfig.getReleaseAuth() else PushToolConfig.getTestAuth(), pushContent
+                    if (cbRelease.isChecked) PushToolConfig.getReleaseAuth() else PushToolConfig.getTestAuth(),
+                    pushContent
                 )
             } else {
                 Toast.makeText(this, "同学通知权限没开", Toast.LENGTH_SHORT).show()
@@ -76,7 +77,7 @@ class SendPushActivity : BaseTestPushActivity(), PushContact.PushView {
                     return false
                 }
             }
-            adapter = PushOptionAdapter().also {
+            adapter = PushOptionAdapter(this@SendPushActivity).also {
                 registrationIdAdapter = it
                 it.setOnItemChildClickListener { adapter, view, position ->
                     deletedListener(adapter as PushOptionAdapter, view, position)
@@ -90,7 +91,7 @@ class SendPushActivity : BaseTestPushActivity(), PushContact.PushView {
                     return false
                 }
             }
-            adapter = PushOptionAdapter().also {
+            adapter = PushOptionAdapter(this@SendPushActivity).also {
                 aliseAdapter = it
                 it.setOnItemChildClickListener { adapter, view, position ->
                     deletedListener(adapter as PushOptionAdapter, view, position)
@@ -131,6 +132,6 @@ class SendPushActivity : BaseTestPushActivity(), PushContact.PushView {
 
     override fun onPause() {
         super.onPause()
-        PushToolConfig.savePushContent( PushGsonUtill.toJson(pushContent))
+        PushToolConfig.savePushContent(PushGsonUtill.toJson(pushContent))
     }
 }

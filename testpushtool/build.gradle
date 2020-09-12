@@ -6,11 +6,11 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.aiyunxiao'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -46,5 +46,4 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
     implementation "com.android.support:recyclerview-v7:28.0.0"
     implementation 'com.parkingwang:okhttp3-loginterceptor:latest.integration'
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }
